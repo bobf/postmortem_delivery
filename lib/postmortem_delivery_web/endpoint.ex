@@ -35,6 +35,7 @@ defmodule PostmortemDeliveryWeb.Endpoint do
     plug Phoenix.Ecto.CheckRepoStatus, otp_app: :postmortem_delivery
   end
 
+  plug CORSPlug, origin: "*"
   plug RemoteIp
   plug Phoenix.LiveDashboard.RequestLogger,
     param_key: "request_logger",

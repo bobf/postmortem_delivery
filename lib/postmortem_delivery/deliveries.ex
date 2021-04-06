@@ -55,7 +55,7 @@ defmodule PostmortemDelivery.Deliveries do
 
   """
   def create_email(attrs, remote_ip) do
-    email_attrs = attrs
+    email_attrs = translated_params(attrs)
     |> with_expiry
     |> with_uri
     |> with_remote_ip(remote_ip)
@@ -124,5 +124,19 @@ defmodule PostmortemDelivery.Deliveries do
   def with_expiry(attrs) do
     one_week = 7 * 24 * 60 * 60
     Map.merge(attrs, %{"expires_at" => DateTime.add(DateTime.utc_now(), one_week, :second)})
+  end
+
+  def translated_params(attrs) do
+    %{
+      html_body: attrs["htmlBody"],
+      text_body: attrs["textBody"],
+      from: attrs["from"],
+      reply_to: attrs["replyTo"],
+      to: attrs["to"],
+      cc: attrs["cc"],
+      bcc: attrs["bcc"],
+      subject: attrs["subject"],
+      message_id: attrs["messageId"]
+    }
   end
 end

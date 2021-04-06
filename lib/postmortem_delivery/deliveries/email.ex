@@ -3,12 +3,18 @@ defmodule PostmortemDelivery.Deliveries.Email do
   import Ecto.Changeset
 
   schema "emails" do
-    field :expires_at, :utc_datetime
-    field :headers, :map
-    field :html_body, :string
-    field :source_ip, :string
-    field :text_body, :string
     field :uri, :string
+    field :html_body, :string
+    field :text_body, :string
+    field :from, :string
+    field :to, :string
+    field :cc, :string
+    field :bcc, :string
+    field :reply_to, :string
+    field :subject, :string
+    field :message_id, :string
+    field :source_ip, :string
+    field :expires_at, :utc_datetime
 
     timestamps()
   end
@@ -16,7 +22,7 @@ defmodule PostmortemDelivery.Deliveries.Email do
   @doc false
   def changeset(email, attrs) do
     email
-    |> cast(attrs, [:uri, :html_body, :text_body, :headers, :expires_at, :source_ip])
-    |> validate_required([:uri, :html_body, :text_body, :headers, :expires_at, :source_ip])
+    |> cast(attrs, [:uri, :html_body, :text_body, :expires_at, :source_ip, :from, :to, :cc, :bcc, :reply_to, :subject, :message_id])
+    |> validate_required([:uri, :html_body, :text_body, :expires_at, :source_ip])
   end
 end
