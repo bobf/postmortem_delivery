@@ -6,11 +6,11 @@ defmodule PostmortemDelivery.Repo.Migrations.CreateEmails do
       add :uri, :string
       add :html_body, :text
       add :text_body, :text
-      add :from, :text
-      add :to, :text
-      add :cc, :text
-      add :bcc, :text
-      add :reply_to, :text
+      add :from, {:array, :string}
+      add :to, {:array, :string}
+      add :cc, {:array, :string}
+      add :bcc, {:array, :string}
+      add :reply_to, {:array, :string}
       add :subject, :text
       add :message_id, :string
       add :source_ip, :string

@@ -6,11 +6,11 @@ defmodule PostmortemDelivery.Deliveries.Email do
     field :uri, :string
     field :html_body, :string
     field :text_body, :string
-    field :from, :string
-    field :to, :string
-    field :cc, :string
-    field :bcc, :string
-    field :reply_to, :string
+    field :from, {:array, :string}
+    field :to, {:array, :string}
+    field :cc, {:array, :string}
+    field :bcc, {:array, :string}
+    field :reply_to, {:array, :string}
     field :subject, :string
     field :message_id, :string
     field :source_ip, :string

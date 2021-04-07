@@ -112,18 +112,32 @@ defmodule PostmortemDelivery.Deliveries do
     Email.changeset(email, attrs)
   end
 
+  def encode_email(%Email{} = email) do
+    json = Jason.encode!(%{
+      htmlBody: email.html_body,
+      textBody: email.text_body,
+      from: email.from,
+      to: email.to,
+      cc: email.cc,
+      bcc: email.bcc,
+      replyTo: email.reply_to,
+      subject: email.subject
+    })
+    Jason.encode!(Base.encode64(json))
+  end
+
   def with_remote_ip(attrs, ip) do
     remote_ip = Enum.join(Tuple.to_list(ip), ".")
-    Map.merge(attrs, %{"source_ip" => remote_ip})
+    Map.merge(attrs, %{source_ip: remote_ip})
   end
 
   def with_uri(attrs) do
-    Map.merge(attrs, %{"uri" => SecureRandom.hex(8)})
+    Map.merge(attrs, %{uri: SecureRandom.hex(8)})
   end
 
   def with_expiry(attrs) do
     one_week = 7 * 24 * 60 * 60
-    Map.merge(attrs, %{"expires_at" => DateTime.add(DateTime.utc_now(), one_week, :second)})
+    Map.merge(attrs, %{expires_at: DateTime.add(DateTime.utc_now(), one_week, :second)})
   end
 
   def translated_params(attrs) do
