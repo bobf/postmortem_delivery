@@ -13,13 +13,13 @@ defmodule PostmortemDeliveryWeb.Router do
   end
 
   scope "/", PostmortemDeliveryWeb do
-    pipe_through :browser
-    resources "/emails", EmailController, only: [:show], param: "uri"
+    pipe_through :api
+    resources "/emails", EmailController, only: [:create], param: "uri"
   end
 
   scope "/", PostmortemDeliveryWeb do
-    pipe_through :api
-    resources "/emails", EmailController, only: [:create], param: "uri"
+    pipe_through :browser
+    resources "/", EmailController, only: [:show], param: "uri"
   end
 
   if Mix.env() in [:dev, :test] do
