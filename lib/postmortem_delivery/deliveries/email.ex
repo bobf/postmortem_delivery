@@ -23,6 +23,6 @@ defmodule PostmortemDelivery.Deliveries.Email do
   def changeset(email, attrs) do
     email
     |> cast(attrs, [:uri, :html_body, :text_body, :expires_at, :source_ip, :from, :to, :cc, :bcc, :reply_to, :subject, :message_id])
-    |> validate_required([:uri, :html_body, :text_body, :expires_at, :source_ip])
+    |> validate_required([:uri, :expires_at, :source_ip])
   end
 end
